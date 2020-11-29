@@ -5,36 +5,29 @@ using UnityEngine;
 public class Gravity_Gyro : MonoBehaviour
 {
     
-    Gyroscope m_Gyro;
-    private Quaternion attitude;
-    private Vector3 gravity;
+    Gyroscope _mGyro;
+    private Quaternion _attitude;
+    private Vector3 _gravity;
     [SerializeField]
     private int attitudeMultiplier;
 
     void Start()
     {
         //Set up and enable the gyroscope (check your device has one)
-        m_Gyro = Input.gyro;
-        m_Gyro.enabled = true;
-        Debug.Log(m_Gyro);
-        attitude = m_Gyro.attitude;
-        gravity = Physics.gravity;
+        _mGyro = Input.gyro;
+        _mGyro.enabled = true;
+        _attitude = _mGyro.attitude;
+        _gravity = Physics.gravity;
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("attitude");
-        attitude = m_Gyro.attitude;
-        Debug.Log(attitude);
-        Vector3 a = new Vector3(0f, attitude.z, 0);
-        Debug.Log("a");
-        Debug.Log(a);
+        _attitude = _mGyro.attitude;
+        Vector3 a = new Vector3(0f, _attitude.z, 0);
         float yVal = -(a.y * attitudeMultiplier);
-        gravity = new Vector3(0f, (yVal), 0);
-        Debug.Log("gravity");
-        Debug.Log(gravity);
-        Physics.gravity = gravity;
+        _gravity = new Vector3(0f, (yVal), 0);
+        Physics.gravity = _gravity;
 
     }
 }
